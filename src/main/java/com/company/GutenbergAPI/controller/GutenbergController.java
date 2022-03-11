@@ -16,13 +16,19 @@ public class GutenbergController {
     @Autowired
     BooksRepository booksRepository;
 
-    @GetMapping("search/{query}")
+    @GetMapping("/search")
+    public List<Book> getAllBooks() {
+        List<Book> allBooks = booksRepository.findAll();
+        return allBooks;
+    }
+
+    @GetMapping("/search/{query}")
     public List<Book> getBooksFromQuery(@PathVariable String query) {
 
         //  Get all the books
         List<Book> allBooks = booksRepository.findAll();
 
-        if(query == null || query == "") {
+        if(query.equals("")) {
             return allBooks;
         }
 
